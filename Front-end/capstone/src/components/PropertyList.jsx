@@ -5,7 +5,7 @@ const PropertyList = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/properties') // Assuming the backend API is running on localhost:5000
+    fetch('http://localhost:5000/api/properties') 
       .then((response) => response.json())
       .then((data) => setProperties(data));
   }, []);
