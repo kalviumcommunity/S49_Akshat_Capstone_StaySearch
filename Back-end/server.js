@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
-dotenv.config();
+dotenv.config(); // Load environment variables
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+app.use(cors()); // Enable CORS
+app.use(express.json()); // Middleware to parse JSON
 
 const PORT = process.env.PORT || 5000;
 
@@ -17,7 +17,7 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log("MongoDB Connection Error:", err));
 
-// Routes
+// Import property routes and use them under /api
 const propertyRoutes = require("./routes/propertyRoutes");
 app.use("/api", propertyRoutes);
 
