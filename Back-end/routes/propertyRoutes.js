@@ -41,4 +41,29 @@ router.post("/properties", async (req, res) => {
   }
 });
 
+// PUT endpoint to update a property by ID
+router.put("/properties/:id", async (req, res) => {
+  const { id } = req.params; // Extract the property ID from the request parameters
+  const updates = req.body; // Extract the updates from the request body
+
+  try {
+    // Find the property by ID and update it with the provided data
+    const updatedProperty = await Property.findByIdAndUpdate(id, updates, {
+      new: true, // Return the updated document
+    });
+
+    if (!updatedProperty) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    res.json({
+      message: "Property updated successfully",
+      property: updatedProperty,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating property", error });
+  }
+});
+
 module.exports = router;
