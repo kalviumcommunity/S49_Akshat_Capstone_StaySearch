@@ -17,9 +17,17 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log("MongoDB Connection Error:", err));
 
-// Import property routes and use them under /api
+// Import property routes
 const propertyRoutes = require("./routes/propertyRoutes");
-app.use("/api", propertyRoutes);
+
+// Import user routes for authentication
+const userRoutes = require("./routes/userRoutes");
+
+// Use property routes under /api/properties
+app.use("/api/properties", propertyRoutes);
+
+// Use user routes under /api/users
+app.use("/api/users", userRoutes);
 
 // Start the server
 app.listen(PORT, () => {
