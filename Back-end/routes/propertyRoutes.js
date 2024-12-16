@@ -1,5 +1,6 @@
 const express = require("express");
 const Property = require("../models/Property"); // Import Property model
+const authMiddleware = require("../middleware/auth"); // Import auth middleware
 
 const router = express.Router();
 
@@ -65,5 +66,16 @@ router.put("/properties/:id", async (req, res) => {
     res.status(500).json({ message: "Error updating property", error });
   }
 });
+
+// Protected route example
+router.get("/properties", authMiddleware, async (req, res) => {
+  try {
+    const properties = await Property.find();
+    res.json(properties);
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
 
 module.exports = router;
